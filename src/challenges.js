@@ -30,7 +30,26 @@ function howManyTimes(repeatedWords, word) {
 howManyTimes(repeatedWords, "matter");
 
 // Iteration 2 | Number Sequence
-function createSequence() {}
+function createSequence(n) {
+  const arrayOfNums = [];
+  if (n===0){
+    return arrayOfNums;
+  }
+
+  for (let i = 0; i <= n; i++){
+    arrayOfNums.push(i);
+  }
+  return arrayOfNums;
+
+}
+
+
+
+
+
+
+
+
 
 // Iteration 3 | Multiply for Each
 const numbers = [1, 2, 5, 10, 13, 50];

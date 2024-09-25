@@ -20,7 +20,6 @@ function howManyTimes(repeatedWords, word) {
     if (word === currentWord) {
       filterArray.push(word);
     }
-    
   });
   console.log(filterArray.length);
 
@@ -32,15 +31,25 @@ howManyTimes(repeatedWords, "matter");
 // Iteration 2 | Number Sequence
 function createSequence(n) {
   const arrayOfNums = [];
-  if (n===0){
+  if (n === 0) {
     return arrayOfNums;
   }
 
-  for (let i = 0; i <= n; i++){
+  for (let i = 0; i <= n; i++) {
     arrayOfNums.push(i);
   }
   return arrayOfNums;
+}
 
+// Iteration 3 | Multiply for Each
+const numbers = [1, 2, 5, 10, 13, 50];
+
+function multiplyBy(arrayOfNumber, multiplier) {
+let newArray=[];
+  arrayOfNumber.forEach((number) => {
+newArray.push(number*multiplier);
+  })
+  return newArray;
 }
 
 
@@ -48,13 +57,6 @@ function createSequence(n) {
 
 
 
-
-
-
-// Iteration 3 | Multiply for Each
-const numbers = [1, 2, 5, 10, 13, 50];
-
-function multiplyBy() {}
 
 // Iteration 4 | Filter Out
 const original = ["cat", "dog", "fish", "bird", "cat", "fish"];

@@ -13,6 +13,17 @@ const repeatedWords = [
   "matter",
 ];
 
+/*
+function howManyTimes(repeatedWords, word) {
+  let filteredArray = repeatedWords.filter((currentWord) => {
+    return word === currentWord
+  });
+  return filteredArray.length;
+}
+
+howManyTimes(repeatedWords, "matter");
+*/
+
 function howManyTimes(repeatedWords, word) {
   let filterArray = [];
 
@@ -45,24 +56,37 @@ function createSequence(n) {
 const numbers = [1, 2, 5, 10, 13, 50];
 
 function multiplyBy(arrayOfNumber, multiplier) {
-let newArray=[];
+  let newArray = [];
   arrayOfNumber.forEach((number) => {
-newArray.push(number*multiplier);
-  })
+    newArray.push(number * multiplier);
+  });
   return newArray;
 }
 
-
-
-
-
-
-
 // Iteration 4 | Filter Out
-const original = ["cat", "dog", "fish", "bird", "cat", "fish"];
 const toRemove = ["cat", "dog"];
+const original = ["cat", "dog", "fish", "bird", "cat", "fish"];
 
-function filterOut() {}
+function filterOut(original, toRemove) {
+  if (original.length === 0){
+    return null;
+  }
+
+  for (let i = 0; i < toRemove.length; i++) {
+
+    for (let j = 0; j < original.length; j++) {
+      
+      if (original[j] === toRemove[i]) {
+        original.splice(j,1);
+        j--;
+      }
+
+    }
+  
+  }
+  console.log(original);
+  return original;
+}
 
 // Iteration 5 | Unique Arrays
 const duplicateWords = [
@@ -79,9 +103,25 @@ const duplicateWords = [
   "bring",
 ];
 
-function uniquifyArray() {}
+function uniquifyArray(arrayToCheck) {
+  
+  if( arrayToCheck.length === 0){
+    return null;
+  }
+  const filteredArray = [];
+  
+  arrayToCheck.forEach((item) => {
+    if (!(filteredArray.includes(item))){
+      filteredArray.push(item);
+    }
+  });
+
+  return filteredArray;
+}
+
 
 // Bonus: Iteration 6 | Product of Adjacent Numbers
+
 const matrix = [
   [8, 2, 22, 97, 38, 15, 0, 40, 0, 75, 4, 5, 7, 78, 52, 12, 50, 77, 91, 8],
   [
@@ -147,4 +187,76 @@ const matrix = [
   ],
 ];
 
-function greatestProduct() {}
+function greatestProduct(superArray) {
+  let maxProduct = 0;
+  superArray[0][0] * superArray[0][1] * superArray[0][2] * superArray[0][3];
+  for (i = 0; i < superArray.length; i++) {
+    for (j = 0; j < superArray[i].length; j++) {
+      if (j < superArray[i].length - 3) {
+        let right =
+          superArray[i][j] *
+          superArray[i][j + 1] *
+          superArray[i][j + 2] *
+          superArray[i][j + 3];
+        if (right > maxProduct) {
+          maxProduct = right;
+        }
+      }
+
+      if (i < superArray.length - 3) {
+        let down =
+          superArray[i][j] *
+          superArray[i + 1][j] *
+          superArray[i + 2][j] *
+          superArray[i + 3][j];
+        if (down > maxProduct) {
+          maxProduct = down;
+        }
+      }
+    }
+  }
+  return maxProduct;
+}
+
+
+//Different solution
+/* function greatestProduct(matrix) {
+ 
+  let value1;
+  let value2;
+  let value3;
+  let value4;
+  let greatestProductVal = 0;
+
+  //Check if at least 4 elements per row
+  matrix.forEach((row, index) => {
+      if (row.length < 4){
+        throw new SyntaxError(`Not enough elements in row ${index}. There need to be at least 4 per row`);
+      }
+  });
+
+  matrix.forEach((row, i)=> {
+  
+    row.forEach((colunmInRow, j) => {
+        if ((matrix[i][j+3])){
+            let mult1 = matrix[i][j];
+            let mult2 = matrix[i][j + 1];
+            let mult3 = matrix[i][j + 2];
+            let mult4 = matrix[i][j + 3];
+            let currentProduct = mult1 *  mult2 * mult3 * mult4;
+            if (currentProduct > greatestProductVal) {
+              greatestProductVal = currentProduct;
+              value1 = matrix[i][j];
+              value2 = matrix[i][j + 1];
+              value3 = matrix[i][j + 2];
+              value4 = matrix[i][j + 3];
+            } 
+        }
+    });
+  });
+  console.log(
+    `The greatest product is ${greatestProductVal} and the values are ${value1}, ${value2}, ${value3} and ${value4}.`
+  );
+  return greatestProductVal;
+}
+greatestProduct(matrix); */

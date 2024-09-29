@@ -187,9 +187,28 @@ const matrix = [
   ],
 ];
 
+const matrix2 = [
+  [5, 9, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 7],
+  [6, 8, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 7],
+  [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+  [1, 9, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+  [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+  [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+  [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+  [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+  [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+  [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+  [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+  [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+  [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+  [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 9],
+  [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 9],
+  [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 8, 1]
+];
+
 function greatestProduct(superArray) {
   let maxProduct = 0;
-  superArray[0][0] * superArray[0][1] * superArray[0][2] * superArray[0][3];
+  
   for (i = 0; i < superArray.length; i++) {
     for (j = 0; j < superArray[i].length; j++) {
       if (j < superArray[i].length - 3) {
@@ -203,7 +222,7 @@ function greatestProduct(superArray) {
         }
       }
 
-      if (i < superArray.length - 3) {
+       if (i < superArray.length - 3) {
         let down =
           superArray[i][j] *
           superArray[i + 1][j] *
@@ -215,48 +234,72 @@ function greatestProduct(superArray) {
       }
     }
   }
+  console.log(maxProduct);
   return maxProduct;
 }
 
 
 //Different solution
 /* function greatestProduct(matrix) {
- 
-  let value1;
-  let value2;
-  let value3;
-  let value4;
   let greatestProductVal = 0;
 
   //Check if at least 4 elements per row
-  matrix.forEach((row, index) => {
-      if (row.length < 4){
-        throw new SyntaxError(`Not enough elements in row ${index}. There need to be at least 4 per row`);
-      }
+  matrix.forEach((row, rowIndex) => {
+    if (row.length < 4) {
+      throw new SyntaxError(
+        `Not enough elements in row ${rowIndex}. There need to be at least 4 per row.`
+      );
+    }
   });
 
-  matrix.forEach((row, i)=> {
-  
-    row.forEach((colunmInRow, j) => {
-        if ((matrix[i][j+3])){
-            let mult1 = matrix[i][j];
-            let mult2 = matrix[i][j + 1];
-            let mult3 = matrix[i][j + 2];
-            let mult4 = matrix[i][j + 3];
-            let currentProduct = mult1 *  mult2 * mult3 * mult4;
-            if (currentProduct > greatestProductVal) {
-              greatestProductVal = currentProduct;
-              value1 = matrix[i][j];
-              value2 = matrix[i][j + 1];
-              value3 = matrix[i][j + 2];
-              value4 = matrix[i][j + 3];
-            } 
+  //Check if at least 4 elements per column
+  for (let column = 0; column < matrix[0].length; column++) {
+    if (!matrix[3][column]) {
+      throw new SyntaxError(
+        `Not enough elements in column ${column}. There need to be at least 4 per column.`
+      );
+    }
+  }
+
+
+  //Multiplications per row
+
+  matrix.forEach((row, i) => {
+    row.forEach((column, j) => {
+      if (matrix[i][j + 3]) {
+        let mult1 = matrix[i][j];
+        let mult2 = matrix[i][j + 1];
+        let mult3 = matrix[i][j + 2];
+        let mult4 = matrix[i][j + 3];
+        let currentProduct = mult1 * mult2 * mult3 * mult4;
+        if (currentProduct > greatestProductVal) {
+          greatestProductVal = currentProduct;
         }
+      }
     });
   });
+
+  //Multiplications per column
+
+  for (let column = 0; column < matrix[0].length; column++) {
+    for (let row = 0; row < matrix.length; row++) {
+      if (matrix[row + 3]) {
+        let mult1 = matrix[row][column];
+        let mult2 = matrix[row + 1][column];
+        let mult3 = matrix[row + 2][column];
+        let mult4 = matrix[row + 3][column];
+        let currentProduct = mult1 * mult2 * mult3 * mult4;
+        if (currentProduct > greatestProductVal) {
+          greatestProductVal = currentProduct;
+        }
+      }
+    }
+  }
+
   console.log(
-    `The greatest product is ${greatestProductVal} and the values are ${value1}, ${value2}, ${value3} and ${value4}.`
+    `The greatest product is ${greatestProductVal}.`
   );
   return greatestProductVal;
 }
-greatestProduct(matrix); */
+
+greatestProduct(matrix2); */
